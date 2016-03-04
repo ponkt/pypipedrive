@@ -10,7 +10,7 @@ PIPEDRIVE_API_URL = 'https://api.pipedrive.com/v1/'
 logger = logging.getLogger('pypipedrive')
 
 
-class PipeDriveError(StandardError):
+class PipeDriveError(Exception):
     pass
 
 
@@ -76,7 +76,7 @@ class PipeDrive(object):
         base = base_url.split('.')
         base = '/'.join([self.format_url_attr(s, kwargs) for s in base])
         params = dict(
-            (k, v) for k, v in kwargs.iteritems() if not k.startswith('_'))
+            (k, v) for k, v in iter(kwargs) if not k.startswith('_'))
         if 'method' in params:
             method = params['method']
             del params['method']
@@ -112,4 +112,4 @@ if __name__ == "__main__":
     api_token = environ.get('PIPEDRIVE_API_TOKEN')
     p = PipeDrive(api_token)
     r = p.persons(limit=5)
-    print r
+    print(r)
