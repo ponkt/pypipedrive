@@ -76,7 +76,7 @@ class PipeDrive(object):
         base = base_url.split('.')
         base = '/'.join([self.format_url_attr(s, kwargs) for s in base])
         params = dict(
-            (k, v) for k, v in iter(kwargs) if not k.startswith('_'))
+            (k, v) for k, v in kwargs.items() if not k.startswith('_'))
         if 'method' in params:
             method = params['method']
             del params['method']
